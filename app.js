@@ -6,9 +6,10 @@ import { HelperCreature } from './helpers.js';
 import { SoundManager } from './sounds.js';
 import { ParticleManager } from './particles.js';
 import { Progression } from './progression.js';
+import { FlowerManager } from './flowers.js';
 
 let camera, scene, renderer;
-let ai, creature, helpers=[], soundManager, particleManager, progression;
+let ai, creature, helpers=[], soundManager, particleManager, progression, flowerManager;
 let seedsGroup = new THREE.Group();
 let cardsGroup = new THREE.Group();
 
@@ -46,6 +47,16 @@ function init(){
         helpers.push(new HelperCreature(scene,pos,helperColors[i%3]));
     }
 
+    // Ground plane
+    const groundGeom = new THREE.PlaneGeometry(10, 10);
+    const groundMat = new THREE.MeshStandardMaterial({ color: 0x4a7c2f, roughness: 0.9 });
+    const ground = new THREE.Mesh(groundGeom, groundMat);
+    ground.rotation.x = -Math.PI / 2;
+    scene.add(ground);
+
+    // Purple flowers around the field
+    flowerManager = new FlowerManager(scene);
+
     // Groups
     scene.add(seedsGroup);
     scene.add(cardsGroup);
@@ -58,6 +69,7 @@ function render(){
     const delta = renderer.xr.isPresenting ? renderer.xr.getFrame().deltaTime/1000 : 0.016;
     particleManager.update(delta);
     creature.update(delta);
+    flowerManager.update(delta);
 
     const playerPos = new THREE.Vector3();
     camera.getWorldPosition(playerPos);
