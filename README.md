@@ -1,7 +1,7 @@
 # AI Garden VR
 
 **Author:** Joe Nasr  
-**Identity:** https://joe-nasr-signals.vercel.app/v2/
+**Identity:** https://joe-nasr-signals.vercel.app/
 
 AI Garden VR is an experimental browser project for exploring a garden like interactive simulation with creatures, progression, particles, sound, and a small in memory data object named `AISim`.
 
